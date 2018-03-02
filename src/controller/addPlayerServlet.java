@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Player;
+import model.Team;
 
 /**
  * Servlet implementation class addPlayerServlet
@@ -25,14 +26,6 @@ public class addPlayerServlet extends HttpServlet {
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	//protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-	//}
-
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,11 +34,19 @@ public class addPlayerServlet extends HttpServlet {
 		String lastName = request.getParameter("lastName");
 		String phoneNumber = request.getParameter("phoneNumber");
 		String screenName = request.getParameter("screenName");
-		//String teamId = request.getParameter("teamId");
-		PlayerHelper th = new PlayerHelper();
-		Player p = new Player(firstName, lastName, phoneNumber, screenName);
-		th.insertItem(p);
-		getServletContext().getRequestDispatcher("/addPlayer.html").forward(request, response);
+		String teamName = request.getParameter("teamName");
+		Team team;
+		TeamHelper th = new TeamHelper();
+		PlayerHelper ph = new PlayerHelper();
+		if (th.findTeamByName(teamName) == null) {
+			team = new Team(teamName);
+			th.insertTeam(team);
+		} else {
+			team = th.findTeamByName(teamName);
+		}
+		Player player = new Player(firstName, lastName, phoneNumber, screenName, team);
+		ph.insertPlayer(player);
+		getServletContext().getRequestDispatcher("/index.html").forward(request, response);
 	}
 
 }

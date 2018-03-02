@@ -27,39 +27,18 @@ public class Player {
 	private String screenName;
 	@ManyToOne
 	@JoinColumn(name = "teamId")
-	private Team teamId;
+	private Team team;
 		
 	public Player() {
-		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Player(int playerId, String firstName, String lastName, String phoneNumber, String screenName, Team teamId) {
-		super();
-		this.playerId = playerId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNumber = phoneNumber;
-		this.screenName = screenName;
-		this.teamId = teamId;
-	}
-
-
-	public Player(String firstName, String lastName, String phoneNumber, String screenName) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNumber = phoneNumber;
-		this.screenName = screenName;
-	}
-
-	public Player(int playerId, String firstName, String lastName, String phoneNumber, String screenName) {
-		super();
-		this.playerId = playerId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.phoneNumber = phoneNumber;
-		this.screenName = screenName;
+	public Player(String firstName, String lastName, String phoneNumber, String screenName, Team team) {
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
+		this.setPhoneNumber(phoneNumber);
+		this.setScreenName(screenName);
+		this.setTeam(team);
 	}
 
 	public int getPlayerId() {
@@ -101,19 +80,14 @@ public class Player {
 	public void setScreenName(String screenName) {
 		this.screenName = screenName;
 	}
-
-	//public int getTeamId() {
-		//return teamId;
-	//}
-
-	//public void setTeamId(int teamId) {
-		//this.teamId = teamId;
-	//}
-
-	@Override
-	public String toString() {
-		return "Player [playerId=" + playerId + ", firstName=" + firstName + ", lastName=" + lastName + ", phoneNumber="
-				+ phoneNumber + ", screenName=" + screenName + ", teamId=" + teamId + "]";
+	
+	
+	public Team getTeam() {
+		return team;
+	}
+	
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 	
 	
